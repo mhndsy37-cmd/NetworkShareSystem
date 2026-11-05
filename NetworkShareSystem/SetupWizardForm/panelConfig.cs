@@ -135,11 +135,10 @@ namespace NetworkShareSystem.SetupWizardForm
             string selectedPath = txtPath.Text.Trim();
             string appFolderName = "NetworkShareSystem";
 
-            // ۲. بررسی اینکه آیا مسیر از قبل به نام پوشه ما ختم می‌شود یا خیر
-            // اگر مسیر پیش‌فرض خودمان باشد (که قبلا تنظیم کردیم)، دوباره آن را تکرار نمی‌کنیم
+            
             if (!selectedPath.EndsWith(appFolderName, StringComparison.OrdinalIgnoreCase))
             {
-                // اگر کاربر مسیر دیگری (مثل D:\Downloads) را انتخاب کرده بود، پوشه ما را داخل آن می‌سازیم
+                
                 settings.FolderPath = System.IO.Path.Combine(selectedPath, appFolderName);
             }
             else
@@ -147,7 +146,7 @@ namespace NetworkShareSystem.SetupWizardForm
                 settings.FolderPath = selectedPath;
             }
 
-            // ۳. بقیه تنظیمات (بدون تغییر)
+            
             settings.IconConnected = txtIconConnected.Text;
             settings.IconDisconnected = txtIconDisconnected.Text;
             settings.AllowInsecureSMB = rbGm.Checked;
@@ -223,7 +222,7 @@ namespace NetworkShareSystem.SetupWizardForm
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     UseShellExecute = true,
-                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory, // 🔥 بسیار مهم: تنظیم پوشه کاری
+                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory, 
                     FileName = Application.ExecutablePath,
                     Verb = "runas"
                 };
