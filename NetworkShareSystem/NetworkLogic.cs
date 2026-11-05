@@ -40,34 +40,32 @@ namespace NetworkMonitorApp
         {
             try
             {
-                // اطمینان از اینکه مسیر آیکون مطلق (Absolute) است
+               //es
                 string absoluteIconPath = System.IO.Path.GetFullPath(iconPath);
 
-                if (!System.IO.File.Exists(absoluteIconPath)) return; // اگر فایل آیکون نبود، کاری نکن
+                if (!System.IO.File.Exists(absoluteIconPath)) return; 
 
                 string iniPath = System.IO.Path.Combine(folderPath, "desktop.ini");
 
-                // 1. نوشتن محتوای استاندارد فایل desktop.ini
+      
                 string iniContent = "[.ShellClassInfo]\r\nIconResource=" + absoluteIconPath + ",0\r\n";
 
-                // اگر فایل وجود دارد، ویژگی‌هایش را موقتاً عادی کن تا بتوانی روی آن بنویسی
+                
                 if (System.IO.File.Exists(iniPath))
                     System.IO.File.SetAttributes(iniPath, System.IO.FileAttributes.Normal);
 
-                // نوشتن فایل با فرمت ANSI
+       
                 System.IO.File.WriteAllText(iniPath, iniContent, System.Text.Encoding.Default);
 
-                // 2. اعمال ویژگی‌های مخفی و سیستمی به فایل ini
+                
                 System.IO.File.SetAttributes(iniPath, System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System);
 
-                // 3. اعمال ویژگی سیستمی به خود پوشه (بسیار مهم برای خواندن desktop.ini)
+                
                 var dirInfo = new System.IO.DirectoryInfo(folderPath);
                 if ((dirInfo.Attributes & System.IO.FileAttributes.System) == 0)
                 {
                     dirInfo.Attributes |= System.IO.FileAttributes.System;
                 }
-
-                // 4. رفرش کردن ویندوز اکسپلورر
                 SHChangeNotify(0x08000000, 0x00001005, folderPath, IntPtr.Zero);
             }
             catch (Exception ex)
