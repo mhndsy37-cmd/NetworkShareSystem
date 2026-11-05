@@ -32,11 +32,10 @@ namespace NetworkMonitorApp
             }
             catch (Exception)
             {
-                // اگر فایل خراب بود یا قفل بود، به جای کرش کردن، تنظیمات پیش‌فرض را بده
-            }
+           }
             
             return new AppSettings();
-             // برگرداندن تنظیمات پیش‌فرض در صورت خطا
+             
         }
 
         public void Save()
