@@ -49,22 +49,21 @@ namespace NetworkShareSystem.SetupWizardForm
                     }
                 }
 
-                // 🔥 بخش Share
+         
                 string shareResult = SystemHelper.SetupNetworkShare(settings.FolderPath);
                 if (shareResult.StartsWith("ERROR") || shareResult.StartsWith("EXCEPTION"))
                 {
                     this.Invoke(new Action(() => MessageBox.Show("Share Warning:\n" + shareResult, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)));
                 }
 
-                // 🔥 بخش Task Scheduler
+              
                 string taskResult = SystemHelper.SetStartup(true);
-                // اگر پیام موفقیت‌آمیز نبود، خطا را نشان بده
                 if (!taskResult.Contains("TASK_CREATED_SUCCESSFULLY"))
                 {
                     this.Invoke(new Action(() => MessageBox.Show("Task Scheduler Warning:\n" + taskResult, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)));
                 }
 
-                // ۳. ذخیره تنظیمات و پایان
+              
                 lblInstallStatus.Text = "Saving configuration...";
                 progressBarInstall.Value = 75;
 
