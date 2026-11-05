@@ -22,7 +22,7 @@ namespace NetworkShareSystem.SetupWizardForm
             bool isElevatedInstall = System.IO.File.Exists(flagPath);
             if (isElevatedInstall)
             {
-                System.IO.File.Delete(flagPath); // پاک کردن فایل موقت
+                System.IO.File.Delete(flagPath); 
                 this.Hide();
                 Form sendConfig = new panelInstall();
                 sendConfig.Show();
