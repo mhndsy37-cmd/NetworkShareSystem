@@ -79,8 +79,7 @@ namespace NetworkShareSystem.SetupWizardForm
         }
         private void panelConfig_Load(object sender, EventArgs e)
         {
-            string logPath = $@"E:\install_log.txt";
-            System.IO.File.AppendAllText(logPath, "cof load 1.\n");
+            
 
             rbSm.Checked = true;
             txtPath.Text = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\NetworkShareSystam";
@@ -154,8 +153,7 @@ namespace NetworkShareSystem.SetupWizardForm
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            string logPath = $@"E:\install_log.txt";
-            System.IO.File.AppendAllText(logPath, "cof end 1.\n");
+            
             if (string.IsNullOrWhiteSpace(settings.FolderPath))
             {
                 MessageBox.Show("Please select a valid folder path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -185,7 +183,7 @@ namespace NetworkShareSystem.SetupWizardForm
             {
                 RelaunchAsAdmin();
             }
-            System.IO.File.AppendAllText(logPath, "cof end 2.\n");
+            
             return;
         }
 
@@ -206,8 +204,7 @@ namespace NetworkShareSystem.SetupWizardForm
             using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
             {
                 WindowsPrincipal principal = new WindowsPrincipal(identity);
-                string logPath = $@"E:\install_log.txt";
-                System.IO.File.AppendAllText(logPath, "cof run ad 1.\n");
+                
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
