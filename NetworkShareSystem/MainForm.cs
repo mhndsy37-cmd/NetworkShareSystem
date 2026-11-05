@@ -19,7 +19,7 @@ namespace NetworkMonitorApp
 
         private string updaterToolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FolderIconUpdater.exe");
 
-        // متغیرهای نگهداری مسیر قطعی آیکون‌ها
+
         private string _iconConnectedPath;
         private string _iconDisconnectedPath;
 
@@ -56,11 +56,11 @@ namespace NetworkMonitorApp
             networkTimer.Tick += NetworkTimer_Tick;
             networkTimer.Start();
 
-            // اجرای اولیه
+            
             NetworkTimer_Tick(null, null);
         }
 
-        // این متد بررسی می‌کند اگر آیکون نبود، آن را از منابع برنامه روی هارد ذخیره کند
+
         private string EnsureIconExists(string currentPath, byte[] defaultResource, string defaultFileName)
         {
             if (!string.IsNullOrWhiteSpace(currentPath) && File.Exists(currentPath))
@@ -80,7 +80,7 @@ namespace NetworkMonitorApp
             }
             catch
             {
-                return null; // اگر حتی این هم نشد، null برمی‌گرداند
+                return null;
             }
         }
 
@@ -94,14 +94,14 @@ namespace NetworkMonitorApp
                 {
                     string iconPath = isUp ? _iconConnectedPath : _iconDisconnectedPath;
 
-                    // ۱. تغییر آیکون سینی
+                  
                     if (!string.IsNullOrWhiteSpace(iconPath) && File.Exists(iconPath))
                     {
                         trayIcon.Icon = new Icon(iconPath);
                     }
                     else
                     {
-                        trayIcon.Icon = SystemIcons.Application; // آیکون جایگزین
+                        trayIcon.Icon = SystemIcons.Application;  
                     }
                     trayIcon.Text = isUp ? "Network: Connected" : "Network: Disconnected";
 
@@ -111,11 +111,11 @@ namespace NetworkMonitorApp
                         UpdateSharedFolderIcon(iconPath);
                     }
 
-                    // 🔥 مهم: این خط حتماً باید اجرا شود تا حلقه بی‌نهایت قطع شود
+                      
                     _lastStatus = isUp;
                 }
             }
-            catch { /* جلوگیری از کرش */ }
+            catch { /*  */ }
         }
 
         private void UpdateSharedFolderIcon(string iconPath)
@@ -135,7 +135,6 @@ namespace NetworkMonitorApp
                 if ((dirInfo.Attributes & FileAttributes.System) == 0)
                     dirInfo.Attributes |= FileAttributes.System;
 
-                // اجرای ابزار اختصاصی
                 if (File.Exists(updaterToolPath))
                 {
                     Process.Start(new ProcessStartInfo(updaterToolPath, $"/f \"{_settings.FolderPath}\"")
@@ -146,12 +145,11 @@ namespace NetworkMonitorApp
                 }
                 else
                 {
-                    // روش جایگزین اگر ابزار نبود
                     SHChangeNotify(0x08000000, 0x00001005, _settings.FolderPath, IntPtr.Zero);
                     Process.Start(new ProcessStartInfo("ie4uinit.exe", "-show") { WindowStyle = ProcessWindowStyle.Hidden, CreateNoWindow = true });
                 }
             }
-            catch { /* نادیده گرفتن خطاها */ }
+            catch { /* */ }
         }
 
         private void TrayMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
