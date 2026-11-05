@@ -101,8 +101,7 @@ namespace NetworkShareSystem.SetupWizardForm
 
         private void panelInstall_Load_1(object sender, EventArgs e)
         {
-            string logPath = $@"E:\install_log.txt";
-            System.IO.File.AppendAllText(logPath, "ins load 1.\n");
+           
         }
 
         private void panelInstall_Shown(object sender, EventArgs e)
