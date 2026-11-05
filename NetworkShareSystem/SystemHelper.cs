@@ -11,7 +11,7 @@ namespace NetworkMonitorApp
             string taskName = "NetworkShareMonitorApp";
             string exePath = Process.GetCurrentProcess().MainModule.FileName;
 
-            // مسیر ذخیره فایل موقت پاورشل
+            
             string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "NetworkShareMonitorApp");
             string ps1Path = Path.Combine(tempFolder, "SetupTask.ps1");
 
@@ -19,10 +19,10 @@ namespace NetworkMonitorApp
 
             if (enable)
             {
-                // جلوگیری از خطای کاراکتر تک‌کوتیشن در پاورشل
+                
                 string safeExePath = exePath.Replace("'", "''");
 
-                // 🔥 نوشتن اسکریپت پاورشل در یک فایل (بدون هیچ مشکل کوتیشن‌بندی)
+                
                 string script = $@"
 $ErrorActionPreference = 'Stop'
 try {{
@@ -37,10 +37,10 @@ try {{
     Write-Output ('ERROR: ' + $_.Exception.Message)
 }}
 ";
-                // ذخیره فایل با فرمت UTF8
+                
                 File.WriteAllText(ps1Path, script, new System.Text.UTF8Encoding(true));
 
-                // اجرای فایل پاورشل
+                
                 string args = $"-NoProfile -ExecutionPolicy Bypass -File \"{ps1Path}\"";
                 return RunProcess("powershell.exe", args);
             }
