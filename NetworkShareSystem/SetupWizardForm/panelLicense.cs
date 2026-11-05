@@ -36,15 +36,12 @@ namespace NetworkShareSystem.SetupWizardForm
             Form toConfig = new panelConfig();
             toConfig.Show();
             toConfig.Focus();
-            string logPath = $@"E:\install_log.txt";
-
-            System.IO.File.AppendAllText(logPath, "lic end.\n");
+            
 
         }
         private void panelLicense_Load(object sender, EventArgs e)
         {
-        string logPath = $@"E:\install_log.txt";
-            System.IO.File.AppendAllText(logPath, "lic load.\n");
+       
 
         }
     }
